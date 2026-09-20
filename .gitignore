@@ -1,0 +1,9 @@
+# Never commit a notebook with keys pasted in, or any key file.
+*env_vars*
+DO-NOT-SHARE-*
+*keys*.txt
+.env
+
+.ipynb_checkpoints/
+__pycache__/
+.DS_Store
