@@ -15,11 +15,14 @@ Lab 4 runs as an instructor demo. Attendees do not run the full Giskard scan.
 ## What is here
 
 ```
-Labs/                        the four notebooks, plus the chunking app Lab 2 launches
-data/Data_Resources_TDS.zip  137 Behr and KILZ technical data sheets, the lab corpus
-data/Golden_Test_Data_DeepEval.csv   golden question set for Labs 3 and 4
-data/Behr_all_products.xlsx  product metadata used in Lab 3
+Labs/         the four notebooks, plus the chunking app Lab 2 launches
+data/behr/    137 Behr and KILZ technical data sheets, the golden question set, product metadata
+data/calhr/   20 California state employee benefits PDFs, the alternate dataset
 ```
+
+One subdirectory per dataset. `data/README.md` says what is in each and which is the main
+path. Behr is the corpus demoed on screen; CalHR is there for attendees who want a domain
+closer to their own work.
 
 The parsed and embedded corpus is a **release asset**, not a file in the tree, because
 80 people download it at once and release assets are CDN-served. See
