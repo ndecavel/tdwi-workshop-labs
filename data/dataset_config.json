@@ -75,7 +75,8 @@
       "gate_results": "review-docs/PHASE5-gate-results.json",
       "corpus_variants": {
         "sentence": "data/corpus/improved_nodes.parquet",
-        "markdown": "data/corpus/improved_nodes_markdown.parquet"
+        "markdown": "data/corpus/improved_nodes_markdown.parquet",
+        "agentic_v2": "data/corpus/improved_nodes_agentic_v2.parquet"
       },
       "_corpus_variants": [
         "Same documents, same chunk budget, same embedding model. Only the splitter differs, so",
@@ -104,8 +105,14 @@
       "local_golden": "tdwi-workshop-labs/data/calhr/Golden_Test_Data_DeepEval.csv",
       "gate_results": "review-docs/PHASE5-gate-results-calhr.json",
       "corpus_variants": {
-        "sentence": "data/corpus/calhr_nodes.parquet"
-      }
+        "c384": "data/corpus/calhr_nodes.parquet",
+        "c256": "data/corpus/calhr_nodes_256.parquet"
+      },
+      "_corpus_variants": [
+        "c384 is 384/96, the original decision. c256 is the recorded fallback, built after the",
+        "gate failed at c384: naive 2.940 beat hybrid 2.913 with 19 of 30 questions tied all ways.",
+        "Only the chunk budget differs; same parse, splitter and embedding model."
+      ]
     }
   }
 }
