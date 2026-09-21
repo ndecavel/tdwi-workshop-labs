@@ -32,11 +32,14 @@
       "five retrieved chunks across multiple refine passes."
     ],
     "_sample_sizes": [
-      "lab_sample_size is smaller on purpose. Attendees run 10 questions to keep Lab 3",
+      "lab_sample_size is smaller on purpose. Attendees run 15 questions to keep Lab 3",
       "inside its time box; the gate runs 30 because it needs signal, not speed.",
-      "This is the one number that is meant to differ, so it is named rather than drifting."
+      "This is the one number that is meant to differ, so it is named rather than drifting.",
+      "It was 10 until the 2026-09-21 pre-flight audit, where a 10-question sample left",
+      "the three engines nine-way tied on context relevancy and the comparison lesson",
+      "landed flat. 15 buys back some separation for about 50% more calls."
     ],
-    "lab_sample_size": 10,
+    "lab_sample_size": 15,
     "gate_sample_size": 30,
     "_model_string_forms": [
       "The same model needs a different string depending on which library calls it, and",
