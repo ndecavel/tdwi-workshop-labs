@@ -50,7 +50,18 @@
       "Lab 2 deliberately uses nano rather than mini: it is a prompting and chunking lab and",
       "runs many more calls per attendee, so the cheaper model is the right default there."
     ],
-    "litellm_chat_model": "openrouter/openai/gpt-4.1-nano"
+    "litellm_chat_model": "openrouter/openai/gpt-4.1-nano",
+    "openrouter_base_url": "https://openrouter.ai/api/v1",
+    "comparison_models": [
+      "openai/gpt-4.1-nano",
+      "openai/gpt-4.1-mini"
+    ],
+    "_langchain": [
+      "LangChain's ChatOpenAI talks to OpenRouter by pointing base_url at it and passing the",
+      "key. Model strings then take OpenRouter's own unprefixed form, the same spelling the",
+      "llama-index OpenRouter class wants, NOT the 'openrouter/' prefixed LiteLLM form.",
+      "comparison_models is the small/large pair Lab 0 puts side by side."
+    ]
   },
   "datasets": {
     "behr": {
