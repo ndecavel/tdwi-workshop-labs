@@ -1,0 +1,85 @@
+{
+  "_notes": [
+    "Single source of truth for every setting shared between the lab notebooks and",
+    "scripts/gate_hybrid.py in the authoring repo. The gate's job is to predict what",
+    "the room will see, so any value that differs between the two makes the gate a",
+    "measurement of something nobody runs.",
+    "",
+    "Notebooks fetch this file the same way they fetch the golden CSV:",
+    "  !wget -q https://raw.githubusercontent.com/ndecavel/tdwi-workshop-labs/main/data/dataset_config.json",
+    "  CFG = json.load(open('dataset_config.json')); D = CFG['datasets'][DATASET]",
+    "",
+    "Add a setting here before adding it to a notebook, not after."
+  ],
+  "shared": {
+    "generator_model": "openai/gpt-4.1-mini",
+    "judge_model": "google/gemini-2.5-flash",
+    "embed_model": "openrouter/openai/text-embedding-3-small",
+    "context_window": 128000,
+    "max_tokens": null,
+    "similarity_top_k": 5,
+    "quality_filter": 1.0,
+    "random_state": 42,
+    "max_concurrency": 5,
+    "max_retries": 5,
+    "_max_tokens": [
+      "null means the parameter is omitted from the request entirely and the model",
+      "generates up to its own limit. Do NOT delete the key to get this: llama-index's",
+      "OpenRouter class defaults max_tokens to DEFAULT_NUM_OUTPUTS = 256, which is the",
+      "setting that made every answer 'Empty Response' and invalidated the first gate run.",
+      "Omitting the argument and passing None are opposites here.",
+      "context_window stays set explicitly: it defaults to 3900, which silently splits",
+      "five retrieved chunks across multiple refine passes."
+    ],
+    "_sample_sizes": [
+      "lab_sample_size is smaller on purpose. Attendees run 10 questions to keep Lab 3",
+      "inside its time box; the gate runs 30 because it needs signal, not speed.",
+      "This is the one number that is meant to differ, so it is named rather than drifting."
+    ],
+    "lab_sample_size": 10,
+    "gate_sample_size": 30,
+    "_model_string_forms": [
+      "The same model needs a different string depending on which library calls it, and",
+      "getting this wrong fails in two different unhelpful ways. Keep both spellings.",
+      "  generator_model      no prefix. For llama_index.llms.openrouter.OpenRouter.",
+      "                       llama_index.llms.openai.OpenAI validates names against its own",
+      "                       table and raises on 'openai/gpt-4.1-mini' even with a correct",
+      "                       api_base, which is why Lab 3 uses the OpenRouter class.",
+      "  litellm_chat_model   'openrouter/' prefix. For LiteLLM, which routes on the prefix.",
+      "  embed_model          'openrouter/' prefix. For LiteLLMEmbedding, same reason.",
+      "Lab 2 deliberately uses nano rather than mini: it is a prompting and chunking lab and",
+      "runs many more calls per attendee, so the cheaper model is the right default there."
+    ],
+    "litellm_chat_model": "openrouter/openai/gpt-4.1-nano"
+  },
+  "datasets": {
+    "behr": {
+      "label": "Behr technical data sheets",
+      "chunk_size": 1024,
+      "chunk_overlap": 200,
+      "corpus_url": "https://github.com/ndecavel/tdwi-workshop-labs/releases/download/corpus-2026-09-20/improved_nodes.parquet",
+      "golden_url": "https://raw.githubusercontent.com/ndecavel/tdwi-workshop-labs/main/data/behr/Golden_Test_Data_DeepEval.csv",
+      "local_corpus": "data/corpus/improved_nodes.parquet",
+      "local_golden": "tdwi-workshop-labs/data/behr/Golden_Test_Data_DeepEval.csv",
+      "gate_results": "review-docs/PHASE5-gate-results.json"
+    },
+    "calhr": {
+      "label": "CalHR employee benefits",
+      "chunk_size": 384,
+      "chunk_overlap": 96,
+      "_chunking": [
+        "384/96, not Behr's 1024/200, and this is the one place the datasets differ on",
+        "purpose. CalHR is a sixth the size: at 1024/200 it splits into 102 chunks and a",
+        "top-5 query retrieves 4.9% of the whole corpus, so dense retrieval finds the right",
+        "chunk by accident and hybrid has nothing to win. 384/96 gives 290 chunks and 1.7%,",
+        "within 2x of Behr, still leaving 1,920 tokens of context. Fallback is 256/64.",
+        "Phase 4c in TODO-list.md has the measured table."
+      ],
+      "corpus_url": null,
+      "golden_url": "https://raw.githubusercontent.com/ndecavel/tdwi-workshop-labs/main/data/calhr/Golden_Test_Data_DeepEval.csv",
+      "local_corpus": "data/corpus/calhr_nodes.parquet",
+      "local_golden": "tdwi-workshop-labs/data/calhr/Golden_Test_Data_DeepEval.csv",
+      "gate_results": "review-docs/PHASE5-gate-results-calhr.json"
+    }
+  }
+}
