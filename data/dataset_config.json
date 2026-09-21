@@ -72,7 +72,19 @@
       "golden_url": "https://raw.githubusercontent.com/ndecavel/tdwi-workshop-labs/main/data/behr/Golden_Test_Data_DeepEval.csv",
       "local_corpus": "data/corpus/improved_nodes.parquet",
       "local_golden": "tdwi-workshop-labs/data/behr/Golden_Test_Data_DeepEval.csv",
-      "gate_results": "review-docs/PHASE5-gate-results.json"
+      "gate_results": "review-docs/PHASE5-gate-results.json",
+      "corpus_variants": {
+        "sentence": "data/corpus/improved_nodes.parquet",
+        "markdown": "data/corpus/improved_nodes_markdown.parquet"
+      },
+      "_corpus_variants": [
+        "Same documents, same chunk budget, same embedding model. Only the splitter differs, so",
+        "the gate can answer whether header-aligned boundaries retrieve better than sentence ones",
+        "instead of that being assumed. Build the second with:",
+        "  python scripts/build_improved_nodes.py --splitter markdown \\",
+        "      --out-name improved_nodes_markdown.parquet",
+        "Only sentence is published as a release asset; the variant is a local measurement."
+      ]
     },
     "calhr": {
       "label": "CalHR employee benefits",
@@ -90,7 +102,10 @@
       "golden_url": "https://raw.githubusercontent.com/ndecavel/tdwi-workshop-labs/main/data/calhr/Golden_Test_Data_DeepEval.csv",
       "local_corpus": "data/corpus/calhr_nodes.parquet",
       "local_golden": "tdwi-workshop-labs/data/calhr/Golden_Test_Data_DeepEval.csv",
-      "gate_results": "review-docs/PHASE5-gate-results-calhr.json"
+      "gate_results": "review-docs/PHASE5-gate-results-calhr.json",
+      "corpus_variants": {
+        "sentence": "data/corpus/calhr_nodes.parquet"
+      }
     }
   }
 }
