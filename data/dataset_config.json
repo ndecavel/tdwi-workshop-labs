@@ -79,7 +79,8 @@
       "corpus_variants": {
         "sentence": "data/corpus/improved_nodes.parquet",
         "markdown": "data/corpus/improved_nodes_markdown.parquet",
-        "agentic_v2": "data/corpus/improved_nodes_agentic_v2.parquet"
+        "agentic_v2": "data/corpus/improved_nodes_agentic_v2.parquet",
+        "s1024ov0": "data/corpus/improved_nodes_s1024_ov0.parquet"
       },
       "_corpus_variants": [
         "Same documents, same chunk budget, same embedding model. Only the splitter differs, so",
@@ -87,7 +88,13 @@
         "instead of that being assumed. Build the second with:",
         "  python scripts/build_improved_nodes.py --splitter markdown \\",
         "      --out-name improved_nodes_markdown.parquet",
-        "Only sentence is published as a release asset; the variant is a local measurement."
+        "Only sentence is published as a release asset; the variants are local measurements.",
+        "s1024ov0 is the control, sentence at overlap 0. It exists because the markdown path in",
+        "split_document packs header sections and never applies chunk_overlap, so markdown against",
+        "sentence compares two things at once. Measured 2026-09-22: markdown is not distinguishable",
+        "from sentence on this corpus either way (recall@5 -1.5%, 95% CI -6.5% to +3.3%), and the",
+        "hit@5 drop of 6.7 points is two questions that arrived in two chunks rather than one.",
+        "See review-docs/FINDINGS-markdown-splitter.md."
       ]
     },
     "calhr": {
@@ -115,12 +122,21 @@
       "gate_results": "review-docs/PHASE5-gate-results-calhr.json",
       "corpus_variants": {
         "c384": "data/corpus/calhr_nodes.parquet",
-        "c256": "data/corpus/calhr_nodes_256.parquet"
+        "c256": "data/corpus/calhr_nodes_256.parquet",
+        "md384": "data/corpus/calhr_nodes_markdown.parquet",
+        "s384ov0": "data/corpus/calhr_nodes_s384_ov0.parquet"
       },
       "_corpus_variants": [
         "c384 is 384/96, the original decision. c256 is the recorded fallback, built after the",
         "gate failed at c384: naive 2.940 beat hybrid 2.913 with 19 of 30 questions tied all ways.",
-        "Only the chunk budget differs; same parse, splitter and embedding model."
+        "Only the chunk budget differs; same parse, splitter and embedding model.",
+        "md384 and s384ov0 were added 2026-09-22 to answer the markdown splitter question. md384 is",
+        "the header-aware build at the same budget; s384ov0 is sentence at overlap 0, the control,",
+        "because the markdown path never applies chunk_overlap and would otherwise be credited or",
+        "blamed for it. Result: md384 loses 14.5 points of recall@5 against c384 (95% CI -22.5% to",
+        "-5.8%, 24 of 30 questions worse), but 9.7 of those points are the missing overlap alone.",
+        "What is left for the header boundaries is not distinguishable from zero.",
+        "See review-docs/FINDINGS-markdown-splitter.md."
       ]
     }
   }
