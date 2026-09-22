@@ -1,7 +1,7 @@
 # TDWI hands-on RAG labs
 
-Colab notebooks for the TDWI one-day workshop. Open a lab, paste the key handed out in the
-room into the first cell, and run.
+Colab notebooks for the TDWI one-day workshop. Open a lab, give it your own OpenRouter key
+(see [Keys](#keys)), and run.
 
 **Labs 2 to 4 come in two versions.** Same notebook, two corpora: **Behr** is paint and
 primer technical data sheets, **Benefits** is California state employee benefits handbooks.
@@ -54,8 +54,27 @@ retrieval silently rather than raising.
 
 ## Keys
 
-No key is committed here and none is downloaded at runtime. The first cell of each lab has
-empty `os.environ[...]` assignments to paste into. Do not commit a filled-in notebook.
+You need your own OpenRouter key: get one at https://openrouter.ai/keys. One key covers
+chat, embeddings and the evaluation judge.
+
+The key cell near the top of each lab looks for the key in this order and stops at the
+first one it finds:
+
+1. `OPENROUTER_API_KEY` already set in the session.
+2. Colab Secrets: the key icon in the left sidebar, a secret named `OPENROUTER_API_KEY`,
+   with notebook access switched on. The easiest route, since it carries across every lab.
+3. The workshop hub, which hands out keys only while a workshop is running.
+4. A prompt asking you to paste it.
+
+It prints where the key came from, never the key itself. No key is committed here. Do not
+commit a notebook with a key pasted into it.
+
+## Pinned assets
+
+The notebooks fetch `data/dataset_config.json`, the golden sets and the source documents
+at a fixed commit rather than from `main`, and the prepared corpus from a release tag. An
+edit pushed here does not change anybody's run until the pinned commit in the authoring
+repo's `templates/` is moved to it and the notebooks are rebuilt.
 
 ## Provenance
 
