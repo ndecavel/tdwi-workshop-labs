@@ -40,7 +40,7 @@ ALLOWED = {
     "Lab 3": ("Lab_3_Improving_RAG_BEHR.ipynb", "Lab_3_Improving_RAG_Benefits.ipynb",
               {0, 2, 5, 7, 9, 10, 12, 17, 24, 27}),
     "Lab 4": ("Lab_4_Giskard_BEHR.ipynb", "Lab_4_Giskard_Benefits.ipynb",
-              {0, 3, 7, 9}),
+              {0, 4, 8, 10, 12, 16, 17}),
 }
 
 MARKERS = {"code": "# twin: dataset-specific", "markdown": "<!-- twin: dataset-specific -->"}
