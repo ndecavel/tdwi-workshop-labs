@@ -100,6 +100,8 @@
       "golden_url": "https://raw.githubusercontent.com/ndecavel/tdwi-workshop-labs/69b88f7412db34ee237d79be79e9acce2b6224f2/data/behr/Golden_Test_Data_DeepEval.csv",
       "local_corpus": "data/corpus/improved_nodes.parquet",
       "local_golden": "tdwi-workshop-labs/data/behr/Golden_Test_Data_DeepEval.csv",
+      "table_exhibit": "data/behr/table_exhibit.json",
+      "chunk_pages": "data/behr/chunk_pages.json",
       "gate_results": "review-docs/PHASE5-gate-results.json",
       "corpus_variants": {
         "sentence": "data/corpus/improved_nodes.parquet",
@@ -144,6 +146,8 @@
       "golden_url": "https://raw.githubusercontent.com/ndecavel/tdwi-workshop-labs/69b88f7412db34ee237d79be79e9acce2b6224f2/data/calhr/Golden_Test_Data_DeepEval.csv",
       "local_corpus": "data/corpus/calhr_nodes.parquet",
       "local_golden": "tdwi-workshop-labs/data/calhr/Golden_Test_Data_DeepEval.csv",
+      "table_exhibit": "data/calhr/table_exhibit.json",
+      "chunk_pages": "data/calhr/chunk_pages.json",
       "gate_results": "review-docs/PHASE5-gate-results-calhr.json",
       "corpus_variants": {
         "c384": "data/corpus/calhr_nodes.parquet",
@@ -164,5 +168,13 @@
         "See review-docs/FINDINGS-markdown-splitter.md."
       ]
     }
-  }
+  },
+  "_dataset_assets": [
+    "table_exhibit and chunk_pages are paths in this repo, fetched at the same pinned commit",
+    "as this file (a notebook derives the base URL from its own config URL), so set_pin.py",
+    "moves them with everything else. table_exhibit: one complex table shown three ways for",
+    "Lab 3 (built by tools/build_table_exhibit.py). chunk_pages: each corpus chunk's",
+    "physical PDF page, because CalHR's page_label is the page number printed on the page",
+    "(built by tools/build_chunk_pages.py)."
+  ]
 }
