@@ -12,6 +12,8 @@ The main path, and the one demoed on screen.
 | `Data_Resources_TDS.zip` | 137 product data sheets, the source PDFs |
 | `Golden_Test_Data_DeepEval.csv` | golden question set, used by Labs 2, 3 and 4 |
 | `Behr_all_products.xlsx` | product metadata used in Lab 3 |
+| `table_exhibit.json` | the 3190 compliance box as PyMuPDF text, shipped markdown and HTML, for Lab 3 (built by `tools/build_table_exhibit.py`) |
+| `chunk_pages.json` | each corpus chunk's physical PDF page, for Lab 3's small-to-big cell (built by `tools/build_chunk_pages.py`) |
 
 The parsed and embedded version of this corpus is a release asset, not a file in the tree.
 
@@ -36,6 +38,11 @@ constant in the saved file, and two leftover index columns (`Unnamed: 0`, `Unnam
 Evolutions (how the synthesizer rewrote the question): Comparative 21, Constrained 19,
 Hypothetical 18, Multi-context 18, Concretizing 16, Reasoning 13, In-Breadth 11.
 
-`synthetic_input_quality`, which Lab 3 filters on: 1.0 on 57 rows, 0.8 on 50, 0.9 on 3, 0.7
+`synthetic_input_quality`, which Labs 2 to 4 filter on: 1.0 on 57 rows, 0.8 on 50, 0.9 on 3, 0.7
 on 3, and one row each at 0.6, 0.5 and 0.4. So 57 of the 116 rows have quality 1.0, and 60
 have 0.9 or better.
+
+`table_exhibit.json` holds the 2027 guide's PPO coverage table (physical page 16) shown three ways
+for Lab 3, and `chunk_pages.json` maps each corpus chunk to its physical PDF page. CalHR's
+`page_label` is the page number printed on the page, which differs from the physical page in the
+six long documents, so Lab 3 groups by `chunk_pages.json` instead.

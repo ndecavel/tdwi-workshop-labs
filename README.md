@@ -15,7 +15,8 @@ changing dataset halfway leaves the old index and golden set in memory with no e
 | 3. Improving RAG | [Lab_3_Improving_RAG_BEHR.ipynb](https://colab.research.google.com/github/ndecavel/tdwi-workshop-labs/blob/main/Labs/Lab_3_Improving_RAG_BEHR.ipynb) | [Lab_3_Improving_RAG_Benefits.ipynb](https://colab.research.google.com/github/ndecavel/tdwi-workshop-labs/blob/main/Labs/Lab_3_Improving_RAG_Benefits.ipynb) |
 | 4. Scanning a RAG system for vulnerabilities | [Lab_4_Giskard_BEHR.ipynb](https://colab.research.google.com/github/ndecavel/tdwi-workshop-labs/blob/main/Labs/Lab_4_Giskard_BEHR.ipynb) | [Lab_4_Giskard_Benefits.ipynb](https://colab.research.google.com/github/ndecavel/tdwi-workshop-labs/blob/main/Labs/Lab_4_Giskard_Benefits.ipynb) |
 
-Lab 4 runs as an instructor demo. Attendees do not run the full Giskard scan.
+Lab 4 runs as an instructor demo. Attendees do not run the full Giskard scan, which needs
+Python 3.12, but they can run its leading-question pair and the system-prompt fix in Colab.
 
 ## What is here
 
@@ -87,6 +88,7 @@ so an edit pushed here does not change anybody's run until a pin is moved.
 | Pin | What it covers | Where |
 |---|---|---|
 | Commit | `data/dataset_config.json` and the source documents | 9 places across 6 notebooks |
+| Same commit as the config | Lab 3's `table_exhibit.json` and `chunk_pages.json` | derived in the notebook from its config URL, so they move with it |
 | Commit | the golden CSVs | 2 places in `data/dataset_config.json` |
 | Release tag | the prepared corpus parquet files and the Behr scan report | the config and the notebooks |
 
@@ -120,6 +122,8 @@ git config filter.nbstripout.extrakeys "cell.metadata.executionInfo cell.metadat
 | `tools/check_notebooks.py` | fails on saved outputs, execution records, em dashes, leftover placeholders, anything that looks like a key |
 | `tools/check_twins.py` | fails when a Behr notebook and its Benefits twin differ outside the dataset-specific cells |
 | `tools/set_pin.py` | moves the commit and release pins |
+| `tools/build_table_exhibit.py` | builds `data/<dataset>/table_exhibit.json`, the one complex table Lab 3 shows three ways |
+| `tools/build_chunk_pages.py` | builds `data/<dataset>/chunk_pages.json`, each corpus chunk's physical PDF page |
 
 CI runs the first two on every push and pull request that touches `Labs/` or `tools/`.
 
