@@ -66,6 +66,29 @@
       "key. Model strings then take OpenRouter's own unprefixed form, the same spelling the",
       "llama-index OpenRouter class wants, NOT the 'openrouter/' prefixed LiteLLM form.",
       "comparison_models is the small/large pair Lab 0 puts side by side."
+    ],
+    "retrieval_metrics": {
+      "shingle_size": 6,
+      "hit_threshold": 0.5
+    },
+    "_retrieval_metrics": [
+      "How Labs 2-C and 3 score retrieval with no judge and no generation. A retrieved chunk",
+      "'contains' a golden passage when it holds at least hit_threshold of the passage's",
+      "shingle_size-word shingles, after lowercasing and stripping markup and punctuation.",
+      "The golden passages came from different chunks than the corpus (PyMuPDF-era text",
+      "against LlamaParse markdown), so an exact-match rule would miss most true hits.",
+      "  doc@k  some top-k chunk comes from the question's source file",
+      "  hit@k  some top-k chunk contains the golden passage",
+      "  MRR    mean of 1/rank of the first chunk that contains it (0 if none in the top k)",
+      "k is similarity_top_k. These follow the documented definitions of the authoring side's",
+      "retrieval_metrics.py (6-word shingles, a 50% share of the golden passage)."
+    ],
+    "rrf_k": 60,
+    "_rrf_k": [
+      "The k in reciprocal rank fusion. Not passed anywhere: llama-index 0.14.24's",
+      "QueryFusionRetriever hard-codes k = 60 and counts ranks from 0, so a chunk at 1-based",
+      "rank r adds 1/(60 + r - 1). Lab 3's fusion trace starts from this value and lets",
+      "attendees try a smaller one, so the trace and the retriever agree by default."
     ]
   },
   "datasets": {
