@@ -34,12 +34,13 @@
       "five retrieved chunks across multiple refine passes."
     ],
     "_sample_sizes": [
-      "lab_sample_size is smaller on purpose. Attendees run 15 questions to keep Lab 3",
-      "inside its time box; the gate runs 30 because it needs signal, not speed.",
-      "This is the one number that is meant to differ, so it is named rather than drifting.",
-      "It was 10 until the 2026-09-21 pre-flight audit, where a 10-question sample left",
-      "the three engines nine-way tied on context relevancy and the comparison lesson",
-      "landed flat. 15 buys back some separation for about 50% more calls."
+      "lab_sample_size is the number of questions a notebook shows row by row: Lab 2-B's",
+      "per-question table, Lab 3's fusion trace, its prompt task and its expansion table. No score",
+      "is computed on it any more: retrieval is scored on every quality-1.0 question, which costs",
+      "one batched embedding call rather than a judge call per question.",
+      "gate_sample_size and judge_model are read by scripts/gate_hybrid.py in the authoring",
+      "repo, not by any notebook, since the labs stopped scoring answers with a judge (2026-10-21).",
+      "lab_sample_size was 10 until the 2026-09-21 pre-flight audit, and 15 since."
     ],
     "lab_sample_size": 15,
     "gate_sample_size": 30,
@@ -69,19 +70,31 @@
     ],
     "retrieval_metrics": {
       "shingle_size": 6,
-      "hit_threshold": 0.5
+      "hit_threshold": 0.5,
+      "depths": [
+        5,
+        10,
+        20
+      ],
+      "ci_resamples": 2000
     },
     "_retrieval_metrics": [
-      "How Labs 2-C and 3 score retrieval with no judge and no generation. A retrieved chunk",
-      "'contains' a golden passage when it holds at least hit_threshold of the passage's",
-      "shingle_size-word shingles, after lowercasing and stripping markup and punctuation.",
-      "The golden passages came from different chunks than the corpus (PyMuPDF-era text",
-      "against LlamaParse markdown), so an exact-match rule would miss most true hits.",
-      "  doc@k  some top-k chunk comes from the question's source file",
-      "  hit@k  some top-k chunk contains the golden passage",
-      "  MRR    mean of 1/rank of the first chunk that contains it (0 if none in the top k)",
-      "k is similarity_top_k. These follow the documented definitions of the authoring side's",
-      "retrieval_metrics.py (6-word shingles, a 50% share of the golden passage)."
+      "How Labs 2 and 3 score retrieval, with no judge and no generation. Both labs run one",
+      "shared cell, word for word (tools/check_notebooks.py fails if the copies differ). A",
+      "retrieved chunk 'holds' a golden passage when it contains at least hit_threshold of the",
+      "passage's shingle_size-word runs, after lowercasing and stripping markup and punctuation.",
+      "The golden passages came from different chunks than either index (PyMuPDF-era text, against",
+      "pypdf text in Lab 2 and LlamaParse markdown in Lab 3), so an exact-match rule would miss most",
+      "true hits. Per question, over the top k chunks:",
+      "  hit@k         some chunk holds the passage",
+      "  source hit@k  some chunk from the question's own source file holds it",
+      "  recall@k      the share of the passage's shingles found anywhere in the k chunks",
+      "  MRR@k         1/rank of the first chunk that holds it (0 if none does)",
+      "k is similarity_top_k for every table; depths are the extra k values the depth tables show.",
+      "Every question with synthetic_input_quality == quality_filter is scored, not a sample.",
+      "Differences between two retrievers carry a 95% interval from ci_resamples resamples of the",
+      "questions (seed random_state). These follow the documented definitions of the authoring",
+      "side's retrieval_metrics.py (6-word shingles, a 50% share of the golden passage)."
     ],
     "rrf_k": 60,
     "_rrf_k": [
