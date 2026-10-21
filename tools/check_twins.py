@@ -38,7 +38,7 @@ ALLOWED = {
     "Lab 2": ("Lab_2_Naive_RAG_BEHR.ipynb", "Lab_2_Naive_RAG_Benefits.ipynb",
               {0, 4, 5, 6, 12, 14, 16, 19, 20, 34, 45}),
     "Lab 3": ("Lab_3_Improving_RAG_BEHR.ipynb", "Lab_3_Improving_RAG_Benefits.ipynb",
-              {0, 3, 6, 8, 10, 11, 14, 15, 17, 20, 31, 32, 33, 37, 42, 51}),
+              {0, 3, 6, 8, 10, 11, 14, 15, 17, 20, 31, 32, 33, 37, 42, 50}),
     "Lab 4": ("Lab_4_Giskard_BEHR.ipynb", "Lab_4_Giskard_Benefits.ipynb",
               {0, 4, 8, 10, 12, 16, 17}),
 }

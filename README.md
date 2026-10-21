@@ -66,7 +66,7 @@ retrieval silently rather than raising.
 ## Keys
 
 You need your own OpenRouter key: get one at https://openrouter.ai/keys. One key covers
-chat, embeddings and the evaluation judge.
+chat, embeddings and the model Lab 4's Giskard scan uses.
 
 The key cell near the top of each lab looks for the key in this order and stops at the
 first one it finds:
@@ -79,6 +79,26 @@ first one it finds:
 
 It prints where the key came from, never the key itself. No key is committed here. Do not
 commit a notebook with a key pasted into it.
+
+## How the labs score retrieval
+
+Labs 2 and 3 measure one thing: whether retrieval hands the model the passage each golden
+question was written from. No judge model scores answers. Both labs run one shared cell,
+word for word, over every golden question the generator scored 1.0 (166 Behr, 57 Benefits),
+and report four numbers over the top k chunks:
+
+| | |
+|---|---|
+| hit@k | some chunk holds the passage (at least half of its 6-word phrases) |
+| source hit@k | some chunk from the question's own file holds it |
+| recall@k | the share of the passage the k chunks carry between them |
+| MRR | 1 over the rank of the first chunk that holds it |
+
+They are shown at k = 5, the setting every lab retrieves with, and at 10 and 20 with the
+tokens each depth costs. A difference between two retrievers comes with a 95% interval from
+resampling the questions. The only model call is one batched embedding of the questions.
+The settings live under `retrieval_metrics` in `data/dataset_config.json`, and
+`tools/check_notebooks.py` fails if the four copies of the cell ever differ.
 
 ## Pinned assets
 
@@ -119,7 +139,7 @@ git config filter.nbstripout.extrakeys "cell.metadata.executionInfo cell.metadat
 
 | Tool | What it does |
 |---|---|
-| `tools/check_notebooks.py` | fails on saved outputs, execution records, em dashes, leftover placeholders, anything that looks like a key |
+| `tools/check_notebooks.py` | fails on saved outputs, execution records, em dashes, leftover placeholders, anything that looks like a key, and a retrieval-metric cell that is not identical across Labs 2 and 3 |
 | `tools/check_twins.py` | fails when a Behr notebook and its Benefits twin differ outside the dataset-specific cells |
 | `tools/set_pin.py` | moves the commit and release pins |
 | `tools/build_table_exhibit.py` | builds `data/<dataset>/table_exhibit.json`, the one complex table Lab 3 shows three ways |
